@@ -6,11 +6,16 @@ class Home extends Component {
     constructor(){
         super()
         this.state={
-            picture:[],
+            pictures:[]
         }
     }
 
     componentDidMount(){
+        [1,2,3,4,5,6].forEach(() => this.addImage())
+       
+    }
+
+    addImage = () => {
         fetch('https://api.thecatapi.com/v1/images/search')
         .then(results=>{
             return results.json();
@@ -18,18 +23,24 @@ class Home extends Component {
         .then(data=>{
             console.log(data[0].url);
             let picture = data[0].url;
-            this.setState({picture:picture});
-            return(
-                <div>
-                    <img src={picture} alt="hello"/>
-                </div> 
-            );
+            this.setState(({pictures}) => ({pictures: [...pictures, picture]}))
+        });
+    }
 
+    getapi(){
+        fetch('https://api.thecatapi.com/v1/images/search')
+        .then(results=>{
+            return results.json();
+        })
+        .then(data=>{
+            console.log(data[0].url);
+            let picture = data[0].url;
+            this.setState(({pictures}) => ({pictures: [...pictures, picture]}))
         });
     }
 
     onLike = ()=>{
-        console.log("like");
+        
     }
 
     onMeh = ()=>{
@@ -38,22 +49,27 @@ class Home extends Component {
     
 
     render() {
+        console.log(this.state)
     return (
     <div className="">
         <div className="background-color-navar">
             <p className="hello">MIEOOOOOO : BETA</p>
         </div>
-        <div className="picture col">
-            {/* TODO get picture here */}
+        <div className="all-picture">
+            {this.state.pictures.map(pic => (
+                <div className="picture" key={pic}>
+                {/* TODO get picture here */}
+                <img className="picture-cat" src={pic} alt="hello1"/> 
+                
+                <div className="button-container">
+                    <button onClick={this.onLike} type="button" className="button-size btn btn-success">Like it !!!</button>
+                    <div className="space-bettew"></div>
+                    <button onClick={this.onMeh} type="button" className="button-size btn btn-danger">Mehhhhhh</button>
+                </div>
+            </div>  
+            ))} 
             
-            <img className="picture-cat" src={this.state.picture} alt="hello"/> 
-            
-            <div className="button-container">
-                <button onClick={this.onLike} type="button" className="button-size btn btn-success">Like it !!!</button>
-                <div className="space-bettew"></div>
-                <button onClick={this.onMeh} type="button" className="button-size btn btn-danger">Mehhhhhh</button>
-            </div>
-        </div>        
+        </div>     
     </div>
     );
   }
