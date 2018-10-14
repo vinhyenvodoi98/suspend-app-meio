@@ -1,0 +1,27 @@
+.background-color-navar{
+    background-color: #DD0000;
+  }
+  
+  .hello{
+    text-align: center;
+    font-weight: 700;
+    font-size: 25px;
+    color : #ffffff; 
+  }
+  
+  .button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+  }
+  
+  .button-size{
+    width: 120px;
+    height: 38px;
+    border-radius: 5px; 
+  }
+  
+  .space-bettew{
+    width: 10px;
+  }
